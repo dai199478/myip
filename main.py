@@ -33,6 +33,12 @@ def getHtml(ip, port):
 
 def genCommit(ip):
     html = getHtml(ip, '4567');
+    lastHtml = open('index.html', 'r').read()
+    print(lastHtml)
+    if html == lastHtml:
+        print('一样')
+        return
+    
     open('index.html', 'w').write(html)
 
     curtime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
@@ -52,8 +58,8 @@ if __name__ == '__main__':
         count += 1
         ip = get_ip_by_ip138()
         if ip == "" or ip == "192.168.1.5":
-            ip = lastIp
             print("异常：%s" % ip)
+            ip = lastIp
 
         print("查询第%d本机的ip地址为:" % count, ip)
         if lastIp == ip:
