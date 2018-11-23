@@ -51,8 +51,9 @@ if __name__ == '__main__':
     while True:
         count += 1
         ip = get_ip_by_ip138()
-        if ip == "":
+        if ip == "" or ip == "192.168.1.5":
             ip = lastIp
+            print("异常：%s" % ip)
 
         print("查询第%d本机的ip地址为:" % count, ip)
         if lastIp == ip:
