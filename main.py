@@ -7,7 +7,11 @@ import time
 
 def get_ip_by_ip138():
     response = requests.get("http://2018.ip138.com/ic.asp")
-    ip = re.search(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", response.content.decode(errors='ignore')).group(0)
+    result = re.search(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", response.content.decode(errors='ignore'))
+    if result is None:
+        return ""
+
+    ip = result.group(0)
     return ip
 
 def getHtml(ip, port):
@@ -47,6 +51,9 @@ if __name__ == '__main__':
     while True:
         count += 1
         ip = get_ip_by_ip138()
+        if ip == "":
+            ip = lastIp
+
         print("查询第%d本机的ip地址为:" % count, ip)
         if lastIp == ip:
             time.sleep(10)
